@@ -1,0 +1,30 @@
+Manuelle Brute-Force-Suche:
+1. Erstellen einer Multiplikationstabelle für Fortlaufende Multiplikation des Parameter alpha 1522 
+
+   Exponent:|1 	  |2    |3    |4    |5    |6    |7    |8    |9    |10   |11
+   1522:    |1522 |797  |1356 |444  |828  |328  |1046 |1082 |1236 |1002 |1
+
+2. Suchen des Exponenten für Ergebnis 
+   -öffentlicher Schlüssel Alice 1522^x = 1082 mod 1607 -> x = 8
+   -öffentlicher Schlüssel Bob   1522^x = 1236 mod 1607 -> x = 9
+
+3. Berechnung des gemeinsamen Schlüssels von Alice und Bob
+   -Kab = K(pub,b)^K(pr,A) = 1236^8 = 328 mod 1607
+   
+4. Aus den gegebenen Informationen weiteres Verfahren ermitteln
+   -Verwendung SHA256-Hash des gemeinsamen Schlüssels
+   -SHA256 Wert von 328 =   2452984f72ef1195df62ab3f23748777dbf39767229425f1bfd0862d476e5840
+   
+5. Paramter von AES 256 CBC prüfen
+   -INPUT für Schlüssel = 32 Bit
+   -INPUT für Initialisierungsverktor = 16 Bit
+   -Jeweils die geforderte Anzahl an Bits aus dem Hash für Key/IV verwenden
+ 
+6. Entschlüsseln der Nachricht
+   -Schlüssel:  2452984f72ef1195df62ab3f23748777
+   -IV:         2452984f72ef1195
+   
+   -Nachricht:  Alice Private Key: 41; Bob Private Key: 53; 
+                KpubA = 1522^41=1082 mod 1607; KpubB = 1522^53=1236 mod 1607; 
+                Kab = 1236^41=328 mod 1607; Kab = 1082^53=328 mod 1607;   
+                Take this Flag: flag_284e462a263c8ca4990a4f13a6781710a0f80331_
